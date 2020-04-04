@@ -1,0 +1,7 @@
+/media/
+/db.sqlite3
+/.idea/
+/anime/migrations/
+/__pycache__/
+/chib/__pycache__/
+/anime/__pycache__/

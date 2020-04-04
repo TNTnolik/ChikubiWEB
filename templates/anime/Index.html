@@ -1,0 +1,14 @@
+{%load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+        <img src="{{ request.user.profile.avatar.url }}" alt="" width="50px">
+        <h1>{{ request.user.profile.nick_name }}</h1>
+    {% endif %}
+    <h1>TEST</h1>
+</body>
+</html>
