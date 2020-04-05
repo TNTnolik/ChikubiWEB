@@ -55,7 +55,7 @@ post_save.connect(update_profile, sender=User)
 class Studio(models.Model):
     name = models.CharField('Название', max_length=200, null=False, blank=False)
     poster = models.ImageField('Постер', upload_to=studio_directory_path, default='avatars/def.svg')
-    url = models.SlugField(max_length=160, unique=True, null=True)  # TODO: Remuve null
+    url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
         return self.name
@@ -68,7 +68,7 @@ class Studio(models.Model):
 class Genre(models.Model):
     name = models.CharField('Название', max_length=200, null=False, blank=False)
     description = models.TextField('Описание', null=True, blank=True)
-    url = models.SlugField(max_length=160, unique=True, null=True)  # TODO: Remuve null
+    url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
         return self.name
@@ -81,7 +81,7 @@ class Genre(models.Model):
 class Category(models.Model):
     name = models.CharField('Название', max_length=160, null=False, blank=False)
     description = models.TextField('Описание', null=True, blank=True)
-    url = models.SlugField(max_length=160, unique=True, null=True)  # TODO: Remuve null
+    url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
         return self.name
@@ -104,7 +104,7 @@ class Anime(models.Model):
     timer = models.ForeignKey(User, related_name='Timer', null=True, on_delete=models.SET_NULL)
     genres = models.ManyToManyField(Genre, related_name='genres')
     categorys = models.ManyToManyField(Category, related_name='categorys')
-    url = models.SlugField(max_length=160, unique=True, null=True)  # TODO: Remuve null
+    url = models.SlugField(max_length=160, unique=True)
     draft = models.BooleanField('Черновик', default=False)
     draftDelete = models.BooleanField('Удалено для модераторов', default=False)
 
@@ -142,3 +142,17 @@ class Frame(models.Model):
     class Meta:
         verbose_name = 'Кадр из аниме'
         verbose_name_plural = 'Кадры из аниме'
+
+
+class Reviews(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
+    text = models.TextField()
+    parent = models.ForeignKey('self', verbose_name='Родитель', blank=True, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.anime}"
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
