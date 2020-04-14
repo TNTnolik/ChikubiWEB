@@ -33,7 +33,11 @@ class Profile(models.Model):
     frazaBool = models.BooleanField('Видена ли фраза', default=True)
 
     def __str__(self):
-        return str(self.user)
+        return f"{self.user.username}"
+
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
 
 
 def create_profile(sender, instance, created, **kwargs):
@@ -156,3 +160,28 @@ class Reviews(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
+
+
+class Rating(models.Model):
+    RATING =[
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
+        (10, '10')
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
+    rating = models.CharField(max_length=2, choices=RATING)
+
+    def __str__(self):
+        return f"{self.anime} - оценка {self.rating}"
+
+    class Meta:
+        verbose_name = 'Рэйтинг'
+        verbose_name_plural = 'Рэйтинг'
