@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
     {% for anime in anime_list %}
-        <h1>{{ anime.name }}</h1>
+        <a href="{{ anime.get_absolute_url }}">{{ anime.name }} - {{ anime.originalName }}</a>
     {% endfor %}
 {% endblock %}

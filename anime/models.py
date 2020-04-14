@@ -5,6 +5,9 @@ from datetime import date
 
 
 # TODO: Rating
+from django.urls import reverse
+
+
 def user_directory_path(instance, filename):
     return 'avatars/{0}.{1}'.format(instance.user.username, filename.split('.')[-1])
 
@@ -118,6 +121,9 @@ class Anime(models.Model):
     class Meta:
         verbose_name = "Аниме"
         verbose_name_plural = "Аниме"
+
+    def get_absolute_url(self):
+        return reverse('Anime_Detail', kwargs={"slug": self.url})
 
 
 class Series(models.Model):
