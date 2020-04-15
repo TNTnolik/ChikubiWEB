@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Авторизация
+{% endblock %}
+
+{% load account socialaccount %}
+{% load static %}
+{% block content %}
+<div class="auth">
+    <h3>Авторизация</h3>
+    <img src="{% static 'img/logo.svg' %}" alt="" width="80px">
+
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        <p>Логин</p>
+        {{ form.login }}
+        <p>Пароль</p>
+        {{ form.password }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button type="submit">Войти</button>
+    </form>
+    <p>Нет аккаунта? <a href="{% url 'account_signup' %}">Зарегистрируйтесь!</a></p>
+    <a href="{% url 'account_reset_password' %}">Забыли пароль?</a>
+
+</div>
+{% endblock %}

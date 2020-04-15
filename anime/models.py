@@ -26,7 +26,7 @@ def frame_directory_path(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=False)
-    nick_name = models.CharField('Ник', max_length=200, null=True, blank=True)
+    nick_name = models.CharField('Ник', max_length=200, null=True, blank=True, unique=True)
     first_name = models.CharField('Имя', max_length=200, null=True, blank=True)
     avatar = models.ImageField('Аватар', upload_to=user_directory_path, default='avatars/def.svg')
     description = models.TextField('Описание', null=True, blank=True)
