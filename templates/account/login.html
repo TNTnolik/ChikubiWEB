@@ -10,7 +10,7 @@
 <div class="auth">
     <h3>Авторизация</h3>
     <img src="{% static 'img/logo.svg' %}" alt="" width="80px">
-
+    <a href="{% provider_login_url "vk" %}"><i class="fab fa-vk"></i></a>
     <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         <p>Логин</p>

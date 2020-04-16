@@ -8,4 +8,17 @@
     <p>{{ anime.name }}</p>
     <p>{{ anime.originalName }}</p>
 
+    <form action="{% url 'add_review' anime.url %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="text">
+        <button type="submit">Отправить</button>
+    </form>
+{% for review in anime.reviews_set.all %}
+    <img src="{{ review.user.profile.avatar.url }}" alt="">
+    <h1>{{ review.user.profile.nick_name }}</h1>
+    <p>{{ review.text }}</p>
+    <p>{{ review.date }}</p>
+
+{% endfor %}
+
 {% endblock %}

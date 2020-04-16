@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from datetime import date
+from django.utils import timezone
+
 
 
 # TODO: Rating
@@ -101,7 +102,7 @@ class Category(models.Model):
 class Anime(models.Model):
     name = models.CharField('Название', max_length=300, null=False, blank=False)
     originalName = models.CharField('Оригинальное название', max_length=300, null=False, blank=False)
-    premiere = models.DateField("Дата примьеры", default=date.today)
+    premiere = models.DateField("Дата примьеры", default=timezone.now)
     description = models.TextField('Описание', null=True, blank=True)
     poster = models.ImageField('Постер', upload_to=anime_directory_path, default='avatars/def.svg')
     background = models.ImageField('Фон', upload_to=anime_directory_path, default='avatars/def.svg')
@@ -159,6 +160,7 @@ class Reviews(models.Model):
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
     text = models.TextField()
     parent = models.ForeignKey('self', verbose_name='Родитель', blank=True, null=True, on_delete=models.SET_NULL)
+    date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"{self.user.username} - {self.anime}"
