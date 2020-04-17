@@ -26,6 +26,8 @@ class AddReview(View):
         anime = Anime.objects.get(url=slug)
         if form.is_valid():
             form = form.save(commit=False)
+            if request.POST.get("parent", None):
+                form.parent_id = int(request.POST.get("parent"))
             form.anime = anime
             form.user = request.user
             form.save()

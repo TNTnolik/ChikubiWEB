@@ -126,6 +126,8 @@ class Anime(models.Model):
     def get_absolute_url(self):
         return reverse('Anime_Detail', kwargs={"slug": self.url})
 
+    def get_review(self):
+        return self.reviews_set.filter(parent__isnull=True)
 
 class Series(models.Model):
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE)

@@ -8,17 +8,36 @@
     <p>{{ anime.name }}</p>
     <p>{{ anime.originalName }}</p>
 
-    <form action="{% url 'add_review' anime.url %}" method="post">
+    <form action="{% url 'add_review' anime.url %}" method="post" id="formReview">
         {% csrf_token %}
-        <input type="text" name="text">
+        <input type="hidden" name="parent" id="contparent" value="">
+        <textarea rows="5" name="text" id="contcomment" required=""></textarea>
         <button type="submit">Отправить</button>
     </form>
-{% for review in anime.reviews_set.all %}
+{% for review in anime.get_review %}
     <img src="{{ review.user.profile.avatar.url }}" alt="">
     <h1>{{ review.user.profile.nick_name }}</h1>
     <p>{{ review.text }}</p>
     <p>{{ review.date }}</p>
+    <a href="#formReview" onclick="addReview('{{ review.user.profile.nick_name }}', '{{ review.id }}')">Ответить</a>
+    {% for rew in review.reviews_set.all %}
+        <div>
+            <img src="{{ rew.user.profile.avatar.url }}" alt="">
+            <h1>{{ rew.user.profile.nick_name }}</h1>
+            <p>{{ rew.text }}</p>
+            <p>{{ rew.date }}</p>
+        </div>
+    {% endfor %}
 
+
+
+    <script>
+    function addReview(name, id) {
+        document.getElementById("contparent").value = id;
+        document.getElementById("contcomment").innerText = `${name}, `
+
+    }
+    </script>
 {% endfor %}
 
 {% endblock %}
