@@ -141,3 +141,55 @@ body{
     color: white;
     font-size: 0.8em;
 }
+
+.content__anime {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    column-gap: 20px;
+    row-gap: 10px;
+}
+.title {
+    display: flex;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    color: white;
+    font-family: Roboto;
+}
+.title h2 {
+    background-color: #74739c;
+    padding: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.title::after {
+    background-color: #8382ab;
+    margin-left: 5px;
+    width: 25px;
+    content: " ";
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.left__bar img{
+    width: 70%;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.player {
+    background-color: black;
+    height: 400px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.ditail__anime {
+    margin-bottom: 20px;
+    background-color: rgba(46, 60, 72, 0.91);
+    box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 10px;
+    color: white;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+}
+.ditail__anime span {
+    font-size: 16px;
+    font-family: "Roboto Light";
+}

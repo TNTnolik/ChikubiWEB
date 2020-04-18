@@ -5,29 +5,58 @@
 {% endblock %}
 
 {% block content %}
-    <p>{{ anime.name }}</p>
-    <p>{{ anime.originalName }}</p>
-
-    <form action="{% url 'add_review' anime.url %}" method="post" id="formReview">
-        {% csrf_token %}
-        <input type="hidden" name="parent" id="contparent" value="">
-        <textarea rows="5" name="text" id="contcomment" required=""></textarea>
-        <button type="submit">Отправить</button>
-    </form>
-{% for review in anime.get_review %}
-    <img src="{{ review.user.profile.avatar.url }}" alt="">
-    <h1>{{ review.user.profile.nick_name }}</h1>
-    <p>{{ review.text }}</p>
-    <p>{{ review.date }}</p>
-    <a href="#formReview" onclick="addReview('{{ review.user.profile.nick_name }}', '{{ review.id }}')">Ответить</a>
-    {% for rew in review.reviews_set.all %}
-        <div>
-            <img src="{{ rew.user.profile.avatar.url }}" alt="">
-            <h1>{{ rew.user.profile.nick_name }}</h1>
-            <p>{{ rew.text }}</p>
-            <p>{{ rew.date }}</p>
+    <div class="content__anime">
+        <div class="title">
+            <h2>{{ anime.name }} / {{ anime.originalName }}</h2>
         </div>
-    {% endfor %}
+        <div class="left__bar">
+            <img src="{{ anime.poster.url }}" alt="" class="ditail__poster" align="right">
+        </div>
+        <div class="anime_detail">
+            <div class="ditail__anime">
+                <p>Студия: <span>{{ anime.studio }}</span></p>
+                <p>Катигории:{% for category in anime.categorys.all %}<span> {{ category }}</span>{% endfor %}</p>
+                <p>Жанр:{% for genre in anime.genres.all %}<span> {{ genre }}</span>{% endfor %}</p>
+                <p>Дата примьеры: <span>{{ anime.premiere }}</span></p>
+                <p>Озвучили:{% for voise in anime.voise.all %}<span> {{ voise }}</span>{% endfor %}</p>
+                <p>Таймил: <span>{{ anime.timer }}</span></p>
+                <p>Перевели:{% for translate in anime.translate.all %}<span> {{ translate }}</span>{% endfor %}</p>
+                <p>Описание: <span>{{ anime.description }}</span></p>
+            </div>
+
+            <div class="player">
+
+            </div>
+
+            <div class="review">
+                <form action="{% url 'add_review' anime.url %}" method="post" id="formReview">
+                    {% csrf_token %}
+                    <input type="hidden" name="parent" id="contparent" value="">
+                    <textarea rows="5" name="text" id="contcomment" required=""></textarea>
+                    <button type="submit">Отправить</button>
+                </form>
+                {% for review in anime.get_review %}
+                <img src="{{ review.user.profile.avatar.url }}" alt="">
+                <h1>{{ review.user.profile.nick_name }}</h1>
+                <p>{{ review.text }}</p>
+                <p>{{ review.date }}</p>
+                <a href="#formReview" onclick="addReview('{{ review.user.profile.nick_name }}', '{{ review.id }}')">Ответить</a>
+                {% for rew in review.reviews_set.all %}
+                    <div>
+                        <img src="{{ rew.user.profile.avatar.url }}" alt="">
+                        <h1>{{ rew.user.profile.nick_name }}</h1>
+                        <p>{{ rew.text }}</p>
+                        <p>{{ rew.date }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+                    <div></div>
+    </div>
+
+
+
+
 
 
 

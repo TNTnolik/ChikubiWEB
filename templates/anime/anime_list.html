@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
+{% block title %}
+    Аниме
+{% endblock %}
 {% block content %}
     {% for anime in anime_list %}
+        <img src="{{ anime.poster.url }}" alt="">
         <a href="{{ anime.get_absolute_url }}">{{ anime.name }} - {{ anime.originalName }}</a>
     {% endfor %}
 {% endblock %}

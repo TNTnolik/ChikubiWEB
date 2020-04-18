@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 {% load static %}
 <html lang="ru">
 <head>
@@ -7,7 +7,6 @@
         {% block title %}
         Chikubi
         {% endblock %}
-
     </title>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -26,6 +25,9 @@
             <li><a href="{% url 'AnimeList' %}">Тайтлы</a></li>
             <li><a href="#">Команда</a></li>
             <li><a href="#">Пожертвование</a></li>
+            {% if request.user.is_superuser %}
+            <li><a href="/admin/">Админка</a></li>
+            {% endif %}
         </ul>
         <div class="user__menu">
             {% if request.user.is_authenticated %}
@@ -38,6 +40,7 @@
     </nav>
     {% block content %}
     {% endblock %}
+
     <script src="https://kit.fontawesome.com/41ae50e05a.js" crossorigin="anonymous"></script>
 </body>
 </html>

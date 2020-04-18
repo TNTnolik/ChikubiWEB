@@ -104,7 +104,7 @@ class Anime(models.Model):
     originalName = models.CharField('Оригинальное название', max_length=300, null=False, blank=False)
     premiere = models.DateField("Дата примьеры", default=timezone.now)
     description = models.TextField('Описание', null=True, blank=True)
-    poster = models.ImageField('Постер', upload_to=anime_directory_path, default='avatars/def.svg')
+    poster = models.ImageField('Постер', upload_to=anime_directory_path, default='anime/def.jpg')
     background = models.ImageField('Фон', upload_to=anime_directory_path, default='avatars/def.svg')
     studio = models.ForeignKey(Studio, on_delete=models.SET_NULL, null=True)
     voise = models.ManyToManyField(User, related_name='voiser')
