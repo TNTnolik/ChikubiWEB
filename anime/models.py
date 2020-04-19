@@ -195,3 +195,21 @@ class Rating(models.Model):
     class Meta:
         verbose_name = 'Рэйтинг'
         verbose_name_plural = 'Рэйтинг'
+
+
+class AnimeList(models.Model):
+    STATUS = {
+        ("Запланировано", "Запланировано"),
+        ("Смотрю", "Смотрю"),
+        ("Просмотрено", "Просмотрено")
+    }
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
+    status = models.CharField(max_length=16, choices=STATUS)
+
+    def __str__(self):
+        return f"{self.user} \"{self.status}\" {self.anime}"
+
+    class Meta:
+        verbose_name = 'Аниме Лист'
+        verbose_name_plural = 'Аниме Лист'

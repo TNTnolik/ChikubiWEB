@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Anime, Genre, Category, Studio, Series, Frame, Reviews, Rating
+from .models import Profile, Anime, Genre, Category, Studio, Series, Frame, Reviews, Rating, AnimeList
 
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -37,6 +37,9 @@ class ReviewsAdmin(admin.ModelAdmin):
 class RatingAdmin(admin.ModelAdmin):
     pass
 
+class AnimeListAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Anime, AnimeAdmin)
 admin.site.register(Series, SeriesAdmin)
@@ -46,3 +49,4 @@ admin.site.register(Genre, GenreAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Reviews, ReviewsAdmin)
 admin.site.register(Rating, RatingAdmin)
+admin.site.register(AnimeList, AnimeListAdmin)
