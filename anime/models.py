@@ -174,16 +174,16 @@ class Reviews(models.Model):
 
 class Rating(models.Model):
     RATING =[
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-        (5, '5'),
-        (6, '6'),
-        (7, '7'),
-        (8, '8'),
-        (9, '9'),
-        (10, '10')
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+        ('8', '8'),
+        ('9', '9'),
+        ('10', '10')
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
@@ -199,16 +199,16 @@ class Rating(models.Model):
 
 class AnimeList(models.Model):
     STATUS = {
-        ("Запланировано", "Запланировано"),
-        ("Смотрю", "Смотрю"),
-        ("Просмотрено", "Просмотрено")
+        ("planned", "Запланировано"),
+        ("look", "Смотрю"),
+        ("viewed", "Просмотрено")
     }
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
-    status = models.CharField(max_length=16, choices=STATUS)
+    status = models.CharField(max_length=8, choices=STATUS)
 
     def __str__(self):
-        return f"{self.user} \"{self.status}\" {self.anime}"
+        return f"{self.user} \"{self.get_status_display()}\" {self.anime}"
 
     class Meta:
         verbose_name = 'Аниме Лист'

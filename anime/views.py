@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 
-from .models import Anime
-from .forms import ReviewsForm
+from .models import Anime, Rating
+from .forms import ReviewsForm, RatingForm
 
 
 class Index(View):
@@ -17,9 +17,16 @@ class AnimeListViews(ListView):
 
 
 class AnimeDetailView(DetailView):
-    def get(self, request, slug):
-        anime = Anime.objects.get(url=slug)
-        return render(request, 'anime/anime_detail.html', {'anime': anime})
+    model = Anime
+    slug_field = "url"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["rating_form"] = RatingForm
+        return context
+    # def get(self, request, slug):
+    #     anime = Anime.objects.get(url=slug)
+    #     return render(request, 'anime/anime_detail.html', {'anime': anime})
 
 
 class AddReview(View):
@@ -35,3 +42,14 @@ class AddReview(View):
             form.user = request.user
             form.save()
         return redirect(f"/anime/{slug}")
+
+class AddRating(View):
+
+    def post(self, request):
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            Rating.objects.update_or_create(
+                user=request.user,
+                anime_id=int(request.POST.get("anime")),
+                rating=int(request.POST.get("star"))
+            )

@@ -5,5 +5,6 @@ urlpatterns = [
     path('', Index.as_view()),
     path('anime/<slug:slug>/', AnimeDetailView.as_view(), name="Anime_Detail"),
     path('list/', AnimeListViews.as_view(), name="AnimeList"),
-    path('review/<slug:slug>/', AddReview.as_view(), name='add_review')
+    path('review/<slug:slug>/', AddReview.as_view(), name='add_review'),
+    path('add-rating/', AddRating.as_view, name="add_rating")
 ]

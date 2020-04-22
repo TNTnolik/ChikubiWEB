@@ -22,6 +22,18 @@
                 <p>Таймил: <span>{{ anime.timer }}</span></p>
                 <p>Перевели:{% for translate in anime.translate.all %}<span> {{ translate }}</span>{% endfor %}</p>
                 <p>Описание: <span>{{ anime.description }}</span></p>
+                <form action="{% url "add_rating" %}" method="post" name="rating">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ request.path }}" name="next">
+                    <input type="hidden" value="{{ anime.id }}" name="anime">
+                    <span class="rating">
+                        {% for k, v in rating_form.fields.rating.choices %}
+                            <input id="rating{{v}}" type="radio" name="star" value="{{ v }}">
+                            <label for="rating{{v}}">{{ k }}</label>
+                        {% endfor %}
+
+                    </span>
+                </form>
             </div>
 
             <div class="player">
